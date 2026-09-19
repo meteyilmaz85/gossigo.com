@@ -256,6 +256,10 @@ footer{
   padding:40px 0;
 }
 .footer-inner{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px;}
+.footer-legal{margin-top:20px;padding-top:20px;border-top:1px solid rgba(255,255,255,.06);display:flex;align-items:center;justify-content:center;gap:14px;flex-wrap:wrap;}
+.footer-legal a{font-size:13px;color:var(--muted);transition:color .2s;}
+.footer-legal a:hover{color:var(--text);}
+.footer-legal .dot{color:var(--muted-dim);font-size:12px;}
 .footer-brand{display:flex;align-items:center;gap:8px;}
 .footer-brand svg{width:22px;height:22px;}
 .footer-brand span{font-family:'Syne',sans-serif;font-weight:800;font-size:15px;}
@@ -434,12 +438,21 @@ footer p{color:var(--muted-dim);font-size:13px;}
 </section>
 
 <footer>
-  <div class="wrap footer-inner">
-    <div class="footer-brand">
-      <svg viewBox="0 0 512 512" fill="none"><rect width="512" height="512" rx="114" fill="#0C0910"/><g transform="translate(81, 103) scale(10.9375)"><rect x="1" y="1" width="24" height="17" rx="5.5" fill="#E8175A"/><path d="M6,18 L3.5,25.5 L12,18.5 Z" fill="#B0103F"/><line x1="7" y1="9.5" x2="19" y2="9.5" stroke="white" stroke-width="2.4" stroke-linecap="round"/><polyline points="15,6 19,9.5 15,13" fill="none" stroke="white" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></g></svg>
-      <span>GossiGo</span>
+  <div class="wrap">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <svg viewBox="0 0 512 512" fill="none"><rect width="512" height="512" rx="114" fill="#0C0910"/><g transform="translate(81, 103) scale(10.9375)"><rect x="1" y="1" width="24" height="17" rx="5.5" fill="#E8175A"/><path d="M6,18 L3.5,25.5 L12,18.5 Z" fill="#B0103F"/><line x1="7" y1="9.5" x2="19" y2="9.5" stroke="white" stroke-width="2.4" stroke-linecap="round"/><polyline points="15,6 19,9.5 15,13" fill="none" stroke="white" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></g></svg>
+        <span>GossiGo</span>
+      </div>
+      <p>© 2026 GossiGo. Startyazılım tarafından geliştirilmektedir.</p>
     </div>
-    <p>© 2026 GossiGo. Startyazılım tarafından geliştirilmektedir.</p>
+    <div class="footer-legal">
+      <a href="privacy.html">Gizlilik Politikası</a>
+      <span class="dot">·</span>
+      <a href="terms.html">Hizmet Şartları</a>
+      <span class="dot">·</span>
+      <a href="cookies.html">Çerez Kullanımı</a>
+    </div>
   </div>
 </footer>
 
