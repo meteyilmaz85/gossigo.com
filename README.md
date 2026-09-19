@@ -1,6 +1,6 @@
 # GossiGo web sayfaları
 
-İki bağımsız, Türkçe landing page bulunur. Yeni tasarım eklenirken `index.html` değiştirilmemiştir.
+İki bağımsız, Türkçe landing page bulunur. Ana sayfanın üst bölümündeki “Yeni tasarımı görüntüle” bağlantısı yeni sayfayı açar; mevcut tasarım korunmuştur.
 
 | Sayfa | Dosya | Yayınlandıktan sonraki adres |
 | --- | --- | --- |
