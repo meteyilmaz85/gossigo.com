@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f8f7fb">
+  <meta name="description" content="GossiGo ile aklındakini anonim paylaş, arkadaş grubunda sohbete katıl ve herkesin konuştuğu konuları keşfet.">
+  <title>GossiGo — İsimler gizli. Sohbet gerçek.</title>
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Crect width='40' height='40' rx='12' fill='%23e8175a'/%3E%3Cpath d='M10 11h20v14H18l-6 5v-5h-2z' fill='white'/%3E%3Cpath d='M15 18h10m-3-3 3 3-3 3' fill='none' stroke='%23e8175a' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --paper: #f8f7fb;
+      --white: #ffffff;
+      --ink: #21172d;
+      --muted: #716b7b;
+      --pink: #e8175a;
+      --pink-dark: #bd1248;
+      --rose: #fde7ef;
+      --blue: #3458bf;
+      --line: #e5e1ea;
+      --display: 'Manrope', sans-serif;
+      --body: 'DM Sans', sans-serif;
+    }
+    *, *::before, *::after { box-sizing: border-box; }
+    html { scroll-behavior: smooth; scroll-padding-top: 100px; }
+    body { margin: 0; color: var(--ink); background: var(--paper); font-family: var(--body); font-size: 16px; -webkit-font-smoothing: antialiased; }
+    h1, h2, h3, p { margin: 0; }
+    h1, h2, h3 { font-family: var(--display); }
+    a { color: inherit; text-decoration: none; }
+    button, input { font: inherit; }
+    svg { display: block; flex-shrink: 0; }
+    a, summary { -webkit-tap-highlight-color: transparent; }
+    a:focus-visible, summary:focus-visible { outline: 3px solid var(--blue); outline-offset: 6px; border-radius: 4px; }
+    ::selection { color: var(--ink); background: #ffc3d7; }
+    .container { width: min(1184px, calc(100% - 64px)); margin-inline: auto; }
+    .skip-link { position: fixed; left: 16px; top: -80px; z-index: 100; padding: 14px 20px; background: var(--ink); color: white; border-radius: 10px; }
+    .skip-link:focus { top: 12px; }
+    .icon { width: 22px; height: 22px; fill: none; stroke: currentColor; stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round; }
+    .site-header { border-bottom: 1px solid var(--line); background: var(--paper); }
+    .navigation { min-height: 96px; display: flex; align-items: center; justify-content: space-between; gap: 28px; }
+    .brand { display: inline-flex; align-items: center; gap: 10px; font-family: var(--display); font-weight: 800; font-size: 25px; letter-spacing: -1.2px; }
+    .brand-mark { width: 39px; height: 39px; }
+    .brand-go { color: var(--pink); }
+    .nav-links { display: flex; gap: 30px; align-items: center; font-size: 14px; font-weight: 600; }
+    .nav-links > a:not(.button) { padding-block: 12px; }
+    .nav-links > a:not(.button):hover { color: var(--pink-dark); }
+    .button { min-height: 54px; display: inline-flex; align-items: center; justify-content: center; gap: 13px; padding: 15px 24px; border: 1px solid transparent; border-radius: 12px; font-weight: 700; line-height: 1.4; transition: background .2s, transform .2s; }
+    .button:hover { transform: translateY(-2px); }
+    .button-primary { color: var(--white); background: var(--pink); }
+    .button-primary:hover { background: var(--pink-dark); }
+    .button-dark { color: white; background: var(--ink); }
+    .button-dark:hover { background: #3e2d50; }
+    .button-outline { border-color: #d8d2df; background: transparent; }
+    .button-outline:hover { background: white; }
+    .nav-button { min-height: 44px; padding: 11px 18px; border-radius: 9px; }
+    .nav-button .icon { width: 17px; height: 17px; }
+    .hero { padding: 82px 0 76px; }
+    .hero-grid { display: grid; grid-template-columns: 1.04fr 1fr; gap: 58px; align-items: center; }
+    .eyebrow { display: flex; align-items: center; gap: 9px; color: var(--pink-dark); font-size: 13px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; }
+    .eyebrow::before { content: ''; width: 7px; height: 7px; background: var(--pink); border-radius: 50%; }
+    h1 { margin-top: 24px; font-size: clamp(48px, 5.55vw, 78px); line-height: 1.09; letter-spacing: -.065em; font-weight: 800; }
+    h1 span { color: var(--pink); }
+    .hero-description { margin-top: 26px; max-width: 440px; color: var(--muted); font-size: 18px; line-height: 1.75; }
+    .hero-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 32px; }
+    .launch-note { display: flex; align-items: center; gap: 8px; margin-top: 23px; font-size: 13px; color: var(--muted); }
+    .launch-note .icon { width: 15px; height: 15px; }
+    .demo { position: relative; margin: 0; padding: 36px 32px 25px; border-radius: 32px; background: var(--rose); }
+    .demo-label { display: flex; align-items: center; gap: 7px; margin-bottom: 23px; font-size: 12px; color: #84566c; letter-spacing: .03em; }
+    .demo-label .icon { width: 15px; height: 15px; }
+    .feed { position: relative; padding: 23px; background: white; border: 1px solid #f0dce5; border-radius: 22px; box-shadow: 0 15px 40px #66293c0b; transform: rotate(-2deg); }
+    .feed-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 22px; }
+    .feed-wordmark { font-family: var(--display); font-weight: 800; font-size: 22px; letter-spacing: -1px; }
+    .feed-wordmark span { color: var(--pink); }
+    .mini-avatar { display: grid; place-items: center; width: 34px; height: 34px; border-radius: 50%; background: #f3eef9; color: #79568e; }
+    .feed-tabs { display: flex; gap: 6px; padding: 5px; background: #f7f5f9; border-radius: 10px; font-size: 12px; font-weight: 600; }
+    .feed-tabs span { flex: 1; padding: 10px 6px; text-align: center; color: var(--muted); }
+    .feed-tabs .selected { background: white; border-radius: 7px; color: var(--pink-dark); box-shadow: 0 1px 5px #21172d0a; }
+    .post { padding-top: 23px; }
+    .post-author { display: flex; align-items: center; gap: 9px; font-size: 12px; }
+    .avatar { width: 34px; height: 34px; display: grid; place-items: center; border-radius: 11px; background: #fce8ef; color: var(--pink); }
+    .avatar .icon { width: 20px; height: 20px; }
+    .post-author strong { display: block; font-weight: 600; }
+    .post-author small { display: block; font-size: 12px; color: var(--muted); margin-top: 2px; }
+    .post-time { margin-left: auto; color: #827889; font-size: 12px; }
+    .post-text { margin-top: 16px; font-size: 18px; line-height: 1.5; font-weight: 500; letter-spacing: -.3px; }
+    .post-reactions { display: flex; align-items: center; gap: 15px; margin-top: 18px; padding-bottom: 21px; border-bottom: 1px solid #eeeaf1; font-size: 12px; color: var(--muted); }
+    .post-reactions span { display: inline-flex; align-items: center; gap: 5px; }
+    .post-reactions .icon { width: 16px; height: 16px; }
+    .post-reactions .reaction-heart { color: var(--pink); }
+    .comment { display: flex; align-items: flex-start; gap: 9px; margin-top: 17px; font-size: 13px; line-height: 1.6; }
+    .comment-avatar { display: grid; place-items: center; width: 26px; height: 26px; flex-shrink: 0; border-radius: 50%; background: #eef1fe; color: #6679bc; }
+    .comment-avatar .icon { width: 16px; height: 16px; }
+    .comment strong { color: var(--muted); display: block; font-size: 12px; font-weight: 500; }
+    .group-preview { position: relative; width: calc(100% - 8px); margin: 19px -10px 0 auto; padding: 17px 19px; border: 1px solid #d8dfee; background: #eef2ff; border-radius: 15px; transform: rotate(3deg); }
+    .group-preview-head { display: flex; align-items: center; gap: 7px; font-size: 12px; font-weight: 600; color: var(--blue); }
+    .group-preview-head .icon { width: 15px; height: 15px; }
+    .group-preview-head span { margin-left: auto; font-weight: 400; }
+    .group-preview p { font-size: 15px; line-height: 1.6; margin-top: 9px; }
+    .demo figcaption { display: flex; align-items: center; justify-content: center; gap: 7px; margin-top: 24px; color: #84566c; font-size: 12px; }
+    .demo figcaption .icon { width: 14px; height: 14px; }
+    .intro-strip { border-block: 1px solid var(--line); }
+    .intro-strip-inner { min-height: 98px; display: flex; align-items: center; justify-content: space-between; gap: 24px; }
+    .intro-strip p { font-size: 14px; color: var(--muted); }
+    .intro-strip p strong { color: var(--ink); font-weight: 600; }
+    .topics { display: flex; flex-wrap: wrap; gap: 8px; }
+    .topics span { padding: 9px 15px; background: #eeecf3; border-radius: 50px; color: #61556d; font-size: 13px; }
+    .section { padding: 96px 0; }
+    .section-heading { display: flex; align-items: flex-end; justify-content: space-between; gap: 40px; margin-bottom: 44px; }
+    .section-label { margin-bottom: 15px; color: var(--pink-dark); font-size: 12px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; }
+    h2 { font-size: clamp(32px, 3.7vw, 48px); font-weight: 800; line-height: 1.16; letter-spacing: -.05em; }
+    .section-heading > p { max-width: 330px; color: var(--muted); font-size: 16px; line-height: 1.75; }
+    .features { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; }
+    .feature { padding: 30px; border: 1px solid var(--line); border-radius: 21px; background: white; }
+    .feature-icon { display: grid; place-items: center; width: 49px; height: 49px; margin-bottom: 27px; border-radius: 14px; background: var(--rose); color: var(--pink); }
+    .feature:nth-child(2) .feature-icon { background: #eef2ff; color: var(--blue); }
+    .feature:nth-child(3) .feature-icon { background: #f1eafa; color: #8150ac; }
+    .feature h3 { margin-bottom: 11px; font-size: 22px; line-height: 1.3; font-weight: 800; letter-spacing: -.8px; }
+    .feature p { color: var(--muted); line-height: 1.75; }
+    .feature-foot { margin-top: 25px; padding-top: 20px; border-top: 1px solid #f0ecf4; display: flex; align-items: center; gap: 7px; color: #65586f; font-size: 13px; }
+    .feature-foot .icon { width: 15px; height: 15px; }
+    .how-section { background: var(--white); border-block: 1px solid var(--line); }
+    .how-grid { display: grid; grid-template-columns: .9fr 1fr; gap: 100px; align-items: start; }
+    .how-intro p:last-child { max-width: 320px; margin-top: 22px; color: var(--muted); line-height: 1.75; }
+    .steps { list-style: none; padding: 0; margin: 0; }
+    .step { position: relative; display: flex; align-items: flex-start; gap: 24px; padding-bottom: 36px; }
+    .step:last-child { padding-bottom: 0; }
+    .step:not(:last-child)::after { content: ''; position: absolute; left: 22px; top: 54px; bottom: 10px; width: 1px; background: var(--line); }
+    .step-number { width: 45px; height: 45px; display: grid; place-items: center; flex-shrink: 0; color: var(--pink-dark); background: #fff3f7; border: 1px solid #f9dbe5; border-radius: 50%; font-size: 14px; font-weight: 700; }
+    .step h3 { margin: 1px 0 8px; font-size: 21px; font-weight: 800; letter-spacing: -.6px; }
+    .step p { color: var(--muted); line-height: 1.75; }
+    .faq-grid { display: grid; grid-template-columns: .9fr 1fr; gap: 100px; }
+    .faq-intro p:last-child { margin-top: 20px; color: var(--muted); line-height: 1.75; max-width: 320px; }
+    .faq-list { border-top: 1px solid var(--line); }
+    details { border-bottom: 1px solid var(--line); }
+    summary { position: relative; list-style: none; cursor: pointer; padding: 25px 40px 25px 0; font-family: var(--display); font-size: 17px; font-weight: 700; line-height: 1.5; }
+    summary::-webkit-details-marker { display: none; }
+    summary::after { content: '+'; position: absolute; right: 4px; top: 21px; color: var(--pink); font-size: 25px; font-weight: 400; }
+    details[open] summary::after { content: '−'; }
+    details p { padding: 0 35px 25px 0; color: var(--muted); line-height: 1.75; }
+    details p a { color: var(--pink-dark); text-decoration: underline; text-underline-offset: 3px; }
+    .join-section { padding-bottom: 80px; }
+    .join-box { display: flex; justify-content: space-between; align-items: center; gap: 50px; padding: 52px 56px; background: var(--rose); border: 1px solid #fad3e1; border-radius: 25px; }
+    .join-box h2 { font-size: clamp(32px, 3.5vw, 44px); }
+    .join-box p { color: #7f5369; margin-top: 15px; line-height: 1.7; max-width: 500px; }
+    .join-actions { flex-shrink: 0; text-align: center; }
+    .join-actions small { display: block; color: #81596d; margin-top: 13px; font-size: 12px; }
+    .footer { padding: 45px 0 27px; background: var(--ink); color: #fff; }
+    .footer-main { display: flex; align-items: center; justify-content: space-between; gap: 24px; padding-bottom: 32px; }
+    .footer .brand-go { color: #ff6b9b; }
+    .footer-tagline { margin-top: 11px; color: #c3b7cd; font-size: 14px; }
+    .footer-links { display: flex; align-items: center; gap: 27px; color: #dbd0e3; font-size: 14px; }
+    .footer-links a:hover { color: white; text-decoration: underline; text-underline-offset: 5px; }
+    .footer-bottom { display: flex; justify-content: space-between; gap: 16px; padding-top: 24px; border-top: 1px solid #483a54; color: #b6a7c3; font-size: 12px; line-height: 1.6; }
+    .footer-bottom a { text-decoration: underline; text-underline-offset: 4px; }
+    @media (min-width: 1100px) { .hero-copy { padding-bottom: 8px; } }
+    @media (max-width: 1000px) {
+      .container { width: calc(100% - 48px); }
+      .hero { padding-top: 60px; }
+      .hero-grid { gap: 32px; }
+      h1 { font-size: 58px; }
+      .hero-description { font-size: 16px; }
+      .hero-actions .button { padding-inline: 17px; font-size: 14px; }
+      .demo { padding: 28px 20px 24px; }
+      .feed { padding: 19px; }
+      .post-text { font-size: 17px; }
+      .feature { padding: 25px; }
+      .feature h3 { font-size: 20px; }
+      .how-grid, .faq-grid { gap: 55px; }
+      .join-box { padding: 42px 35px; gap: 30px; }
+    }
+    @media (max-width: 760px) {
+      .navigation { min-height: 78px; gap: 20px; }
+      .nav-links { gap: 16px; }
+      .nav-links > a:not(.nav-button) { display: none; }
+      .brand { font-size: 23px; }
+      .brand-mark { width: 34px; height: 34px; }
+      .hero { padding: 50px 0 48px; }
+      .hero-grid { grid-template-columns: 1fr; gap: 44px; }
+      .hero-copy { max-width: 530px; }
+      h1 { font-size: clamp(48px, 9vw, 70px); }
+      .hero-description { max-width: 480px; font-size: 17px; }
+      .hero-actions .button { padding-inline: 22px; font-size: 15px; }
+      .demo { max-width: 490px; width: 100%; justify-self: center; padding: 28px 32px 24px; }
+      .intro-strip-inner { flex-direction: column; align-items: flex-start; justify-content: center; gap: 17px; padding-block: 26px; }
+      .section { padding: 65px 0; }
+      .section-heading { display: block; margin-bottom: 30px; }
+      .section-heading > p { margin-top: 20px; max-width: 430px; }
+      .features { grid-template-columns: 1fr; gap: 16px; }
+      .feature { padding: 28px; }
+      .feature-icon { margin-bottom: 20px; }
+      .feature h3 { font-size: 23px; }
+      .feature-foot { margin-top: 20px; padding-top: 17px; }
+      .how-grid, .faq-grid { grid-template-columns: 1fr; gap: 35px; }
+      .how-intro p:last-child, .faq-intro p:last-child { max-width: 440px; }
+      .step { gap: 18px; }
+      .join-section { padding-bottom: 50px; }
+      .join-box { flex-direction: column; align-items: flex-start; padding: 34px 28px; gap: 27px; }
+      .join-actions { text-align: left; }
+      .footer-main { align-items: flex-start; }
+      .footer-links { flex-direction: column; align-items: flex-end; gap: 15px; }
+      .footer-bottom { flex-direction: column; gap: 10px; }
+    }
+    @media (max-width: 390px) {
+      .container { width: calc(100% - 36px); }
+      .nav-button { font-size: 13px; padding-inline: 12px; }
+      .nav-button .icon { display: none; }
+      h1 { font-size: 46px; }
+      .hero-actions { flex-direction: column; align-items: stretch; }
+      .demo { padding-inline: 19px; }
+      .feed { padding: 16px; }
+      .post-text { font-size: 16px; }
+      .topics { gap: 6px; }
+      .topics span { padding: 8px 11px; }
+      .footer-main { flex-direction: column; }
+      .footer-links { align-items: flex-start; flex-direction: row; flex-wrap: wrap; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      *, *::before, *::after { transition: none !important; animation: none !important; }
+      .button:hover { transform: none; }
+    }
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#icerik">İçeriğe geç</a>
+  <svg xmlns="http://www.w3.org/2000/svg" width="0" height="0" style="position:absolute" aria-hidden="true">
+    <defs>
+      <symbol id="brand-icon" viewBox="0 0 40 40"><rect width="40" height="40" rx="12" fill="#e8175a"/><path d="M13 10h14a5 5 0 0 1 5 5v7a5 5 0 0 1-5 5h-9l-7 5 1-6a5 5 0 0 1-4-5v-6a5 5 0 0 1 5-5Z" fill="white"/><path d="M14 18.5h12m-4-3.5 4 3.5-4 3.5" fill="none" stroke="#e8175a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+      <symbol id="arrow" viewBox="0 0 24 24"><path d="M5 12h14m-6-6 6 6-6 6"/></symbol>
+      <symbol id="chat" viewBox="0 0 24 24"><path d="M21 11.5a8.4 8.4 0 0 1-9 8.5 10 10 0 0 1-3.8-.7L3 21l1.7-5A8.5 8.5 0 0 1 3 11.5a9 9 0 0 1 18 0Z"/><path d="M8 10h8m-8 4h5"/></symbol>
+      <symbol id="anonymous" viewBox="0 0 24 24"><path d="M4 9h16l-2 8a4 4 0 0 1-6 2 4 4 0 0 1-6-2L4 9Z"/><path d="m7 9 1-5h8l1 5M7.5 13h2m5 0h2"/></symbol>
+      <symbol id="people" viewBox="0 0 24 24"><circle cx="9" cy="8" r="3"/><path d="M3 21v-3a6 6 0 0 1 12 0v3m2-16a3 3 0 0 1 0 6m2 3a5 5 0 0 1 2 4v3"/></symbol>
+      <symbol id="bolt" viewBox="0 0 24 24"><path d="m13 2-9 12h7l-1 8 10-12h-7l1-8Z"/></symbol>
+      <symbol id="heart" viewBox="0 0 24 24"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1.1-1.1a5.5 5.5 0 0 0-7.8 7.8L12 21l8.8-8.6a5.5 5.5 0 0 0 0-7.8Z"/></symbol>
+      <symbol id="lock" viewBox="0 0 24 24"><rect x="5" y="10" width="14" height="11" rx="3"/><path d="M8 10V7a4 4 0 0 1 8 0v3m-4 5v2"/></symbol>
+      <symbol id="check" viewBox="0 0 24 24"><path d="m5 12 4 4L19 6"/></symbol>
+      <symbol id="mail" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="3"/><path d="m4 7 8 6 8-6"/></symbol>
+      <symbol id="phone" viewBox="0 0 24 24"><rect x="6" y="2" width="12" height="20" rx="3"/><path d="M10 5h4m-3 14h2"/></symbol>
+    </defs>
+  </svg>
+
+  <header class="site-header" id="baslangic">
+    <nav class="container navigation" aria-label="Ana menü">
+      <a href="#baslangic" class="brand" aria-label="GossiGo, sayfa başına dön">
+        <svg class="brand-mark" aria-hidden="true"><use href="#brand-icon"/></svg>
+        <span>Gossi<span class="brand-go">Go</span></span>
+      </a>
+      <div class="nav-links">
+        <a href="#kesfet">GossiGo nedir?</a>
+        <a href="#nasil-calisir">Nasıl çalışır?</a>
+        <a href="#sorular">Merak edilenler</a>
+        <a href="#erken-erisim" class="button button-dark nav-button">Erken erişim <svg class="icon" aria-hidden="true"><use href="#arrow"/></svg></a>
+      </div>
+    </nav>
+  </header>
+
+  <main id="icerik">
+    <section class="hero" aria-labelledby="hero-title">
+      <div class="container hero-grid">
+        <div class="hero-copy">
+          <p class="eyebrow">Biraz merak. Bolca sohbet.</p>
+          <h1 id="hero-title">İsimler gizli.<br>Sohbet <span>gerçek.</span></h1>
+          <p class="hero-description">Aklındakini anonim paylaş. Arkadaş grubunda sohbete katıl ya da herkesin konuştuğu konuları keşfet. GossiGo’da sözü sen al.</p>
+          <div class="hero-actions">
+            <a href="#erken-erisim" class="button button-primary">Ben de varım <svg class="icon" aria-hidden="true"><use href="#arrow"/></svg></a>
+            <a href="#kesfet" class="button button-outline">GossiGo’yu keşfet</a>
+          </div>
+          <p class="launch-note"><svg class="icon" aria-hidden="true"><use href="#phone"/></svg>Yakında App Store ve Google Play’de.</p>
+        </div>
+
+        <figure class="demo" aria-label="GossiGo akışının örnek görünümü">
+          <p class="demo-label"><svg class="icon" aria-hidden="true"><use href="#chat"/></svg>GossiGo’da bir gün</p>
+          <div class="feed">
+            <div class="feed-header">
+              <span class="feed-wordmark">Gossi<span>Go</span></span>
+              <span class="mini-avatar"><svg class="icon" aria-hidden="true"><use href="#anonymous"/></svg></span>
+            </div>
+            <div class="feed-tabs" aria-label="Örnek akış görünümü">
+              <span class="selected">Herkese açık</span><span>Gruplarım</span>
+            </div>
+            <div class="post">
+              <div class="post-author">
+                <span class="avatar"><svg class="icon" aria-hidden="true"><use href="#anonymous"/></svg></span>
+                <span><strong>Birisi</strong><small>Herkese açık</small></span>
+                <span class="post-time">2 dk önce</span>
+              </div>
+              <p class="post-text">“Size de oluyor mu? Bir şarkıyı bir kez dinleyip bütün gün kafanızda konser vermek.”</p>
+              <div class="post-reactions" aria-label="Örnek tepkiler: 128 beğeni, 24 yorum">
+                <span class="reaction-heart"><svg class="icon" aria-hidden="true"><use href="#heart"/></svg>128</span>
+                <span><svg class="icon" aria-hidden="true"><use href="#chat"/></svg>24 yorum</span>
+              </div>
+              <div class="comment">
+                <span class="comment-avatar"><svg class="icon" aria-hidden="true"><use href="#anonymous"/></svg></span>
+                <p><strong>Başka birisi</strong>Benimki şu an ikinci albüme geçti.</p>
+              </div>
+            </div>
+          </div>
+          <div class="group-preview">
+            <div class="group-preview-head"><svg class="icon" aria-hidden="true"><use href="#lock"/></svg>Bizim tayfa <span>Özel grup</span></div>
+            <p>“Grubun en sessiz kişisinin burada en çok konuşan olması…”</p>
+          </div>
+          <figcaption><svg class="icon" aria-hidden="true"><use href="#phone"/></svg>Uygulama önizlemesi · Örnek içerik</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <div class="intro-strip">
+      <div class="container intro-strip-inner">
+        <p>Bazen bir düşünce, bazen bir itiraf. <strong>Hep bir sohbet.</strong></p>
+        <div class="topics" aria-label="Sohbet konuları"><span>#günlükhayat</span><span>#arkadaşlar</span><span>#içimdenkaldı</span></div>
+      </div>
+    </div>
+
+    <section class="section" id="kesfet" aria-labelledby="features-title">
+      <div class="container">
+        <div class="section-heading">
+          <div><p class="section-label">GossiGo nedir?</p><h2>Konuşacak çok şey var.<br>Başlayacak bir yerin de.</h2></div>
+          <p>GossiGo, düşüncelerini anonim paylaşabildiğin ve başkalarının sohbetine katılabildiğin sosyal uygulama.</p>
+        </div>
+        <div class="features">
+          <article class="feature">
+            <div class="feature-icon"><svg class="icon" aria-hidden="true"><use href="#anonymous"/></svg></div>
+            <h3>İsmini değil, fikrini paylaş.</h3>
+            <p>Bir düşünce, küçük bir itiraf veya günün konusu. Gerçek adını göstermeden sözü sen al.</p>
+            <div class="feature-foot"><svg class="icon" aria-hidden="true"><use href="#check"/></svg>Anonim paylaşımlar</div>
+          </article>
+          <article class="feature">
+            <div class="feature-icon"><svg class="icon" aria-hidden="true"><use href="#people"/></svg></div>
+            <h3>Kendi çevrende konuş.</h3>
+            <p>Arkadaşlarınla özel bir grup kur veya davet koduyla katıl. Sohbet, tanıdık bir çemberde devam etsin.</p>
+            <div class="feature-foot"><svg class="icon" aria-hidden="true"><use href="#lock"/></svg>Davetle katılınan özel gruplar</div>
+          </article>
+          <article class="feature">
+            <div class="feature-icon"><svg class="icon" aria-hidden="true"><use href="#bolt"/></svg></div>
+            <h3>Gündeme sen de katıl.</h3>
+            <p>Herkese açık akışa göz at. Paylaşımlara tepki ver, yorumunu bırak ve konuşulanları takip et.</p>
+            <div class="feature-foot"><svg class="icon" aria-hidden="true"><use href="#chat"/></svg>Keşfet, yorum yap, tepki ver</div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section how-section" id="nasil-calisir" aria-labelledby="how-title">
+      <div class="container how-grid">
+        <div class="how-intro"><p class="section-label">Nasıl çalışır?</p><h2>Sohbete girmek<br>bu kadar kolay.</h2><p>İster kendi çevrenden başla, ister yeni seslere kulak ver.</p></div>
+        <ol class="steps">
+          <li class="step"><span class="step-number" aria-hidden="true">01</span><div><h3>Anonim profilini oluştur.</h3><p>Gerçek adını veya profil fotoğrafını göstermeden GossiGo’ya katıl.</p></div></li>
+          <li class="step"><span class="step-number" aria-hidden="true">02</span><div><h3>Sohbet alanını seç.</h3><p>Herkese açık akışı keşfet veya davet koduyla arkadaş grubuna dahil ol.</p></div></li>
+          <li class="step"><span class="step-number" aria-hidden="true">03</span><div><h3>Aklındakini bırak.</h3><p>Paylaşım yap, gelen yorumlara katıl, ilgini çeken konulara tepki ver.</p></div></li>
+        </ol>
+      </div>
+    </section>
+
+    <section class="section" id="sorular" aria-labelledby="faq-title">
+      <div class="container faq-grid">
+        <div class="faq-intro"><p class="section-label">Merak edilenler</p><h2>Aklında bir<br>soru mu var?</h2><p>Başlamadan önce bilmek isteyebileceğin birkaç şey.</p></div>
+        <div class="faq-list">
+          <details><summary>Paylaşımlarımda gerçek adım görünür mü?</summary><p>GossiGo’da paylaşımlar anonim bir profille görünür; gerçek adını ya da fotoğrafını göstermen gerekmez. Yazdıklarında kendini veya başkalarını tanıtabilecek kişisel ayrıntıları paylaşmamaya dikkat et.</p></details>
+          <details><summary>Herkese açık akış ile özel grup arasındaki fark ne?</summary><p>Herkese açık akışta daha geniş topluluğun sohbetlerine katılırsın. Özel gruplarda ise paylaşımlar grubun içinde kalır; arkadaşlarınla davet kodu üzerinden bir araya gelirsin.</p></details>
+          <details><summary>Uygulamayı nereden indirebilirim?</summary><p>GossiGo henüz mağazalarda yayında değil. iOS ve Android için hazırlanıyor. Erken erişim hakkında bilgi almak için <a href="mailto:info@startyazilim.com?subject=GossiGo%20Erken%20Eri%C5%9Fim">bize e-posta gönderebilirsin</a>.</p></details>
+        </div>
+      </div>
+    </section>
+
+    <section class="join-section" id="erken-erisim" aria-labelledby="join-title">
+      <div class="container">
+        <div class="join-box">
+          <div><p class="section-label">Yakında burada buluşuyoruz</p><h2>İlk sözü sen söyle.</h2><p>GossiGo’yu ilk deneyenlerden olmak ister misin? Erken erişim hakkında bize yaz.</p></div>
+          <div class="join-actions"><a class="button button-primary" href="mailto:info@startyazilim.com?subject=GossiGo%20Erken%20Eri%C5%9Fim">Erken erişim için yaz <svg class="icon" aria-hidden="true"><use href="#mail"/></svg></a><small>Yakında iOS ve Android’de.</small></div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-main">
+        <div><a href="#baslangic" class="brand" aria-label="GossiGo, sayfa başına dön"><svg class="brand-mark" aria-hidden="true"><use href="#brand-icon"/></svg><span>Gossi<span class="brand-go">Go</span></span></a><p class="footer-tagline">İsimler gizli. Sohbet gerçek.</p></div>
+        <nav class="footer-links" aria-label="Alt menü"><a href="#kesfet">GossiGo’yu keşfet</a><a href="mailto:info@startyazilim.com">İletişim</a></nav>
+      </div>
+      <div class="footer-bottom"><p>© 2026 GossiGo · Startyazılım tarafından geliştiriliyor.</p><a href="index.html">İlk tasarımı görüntüle ↗</a></div>
+    </div>
+  </footer>
+</body>
+</html>
