@@ -37,7 +37,7 @@ nav .wrap{height:72px;display:flex;align-items:center;justify-content:space-betw
 .nav-cta{background:linear-gradient(135deg,var(--pink),var(--purple));color:#fff!important;font-weight:600;font-size:14px;padding:10px 20px;border-radius:100px;box-shadow:0 6px 20px rgba(232,23,90,.28);}
 .lang-switch{font-size:12px;font-weight:700;letter-spacing:.04em;color:var(--muted);border:1px solid rgba(255,255,255,.14);padding:5px 12px;border-radius:100px;transition:color .2s,border-color .2s;}
 .lang-switch:hover{color:var(--text);border-color:rgba(255,255,255,.28);}
-@media(max-width:720px){.nav-links a:not(.nav-cta){display:none;}}
+@media(max-width:720px){.nav-links a:not(.nav-cta):not(.lang-switch){display:none;}}
 .hero{position:relative;z-index:1;padding:100px 0 80px;text-align:center;}
 .eyebrow{display:inline-flex;align-items:center;gap:8px;font-size:12px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--pink);background:rgba(232,23,90,.1);border:1px solid rgba(232,23,90,.25);padding:7px 16px;border-radius:100px;margin-bottom:28px;}
 .eyebrow .dot{width:6px;height:6px;border-radius:50%;background:var(--green);box-shadow:0 0 8px var(--green);}
@@ -296,6 +296,9 @@ footer p.copy{color:var(--muted-dim);font-size:13px;}
       <a href="terms.html">Terms of Service</a>
       <span class="dot">·</span>
       <a href="cookies.html">Cookie Policy</a>
+    
+      <span class="dot">·</span>
+      <a href="support.html">Support</a>
     </div>
   </div>
 </footer>
